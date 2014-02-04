@@ -1,5 +1,10 @@
-<h3>Episode: <%= @episode.title %></h3>
-<h2>pic_link = <%= @pic_link %></h2>
-<% @answers.each do |a| %>
-	<div><%= a %></div>
+<%= form_tag('/post', method: 'post') do %>
+	<%= image_tag @pic_link, id: 'preview' %>
+	<% @answers.each do |answer| %>
+		<div>
+		  <%= radio_button_tag(:choice, answer) %>
+			<%= label_tag(('choice_' + answer).to_sym, answer) %>
+		</div>
+	<% end %>
+	<%= submit_tag('Next') %>
 <% end %>

@@ -12,9 +12,16 @@ a.get('http://mlp.wikia.com/wiki/Episodes')
 episode_names = a.page
   .search('table.table-dotted-rows tr td[style^="padding"]')
   .map(&:text)
-  .map { |name| name.gsub(/\n/, '') }
+  .map { |name| name.gsub(/\n/, '').strip }
   .reject(&:empty?)
+season_number = 1
+episode_number = 1
 episode_names.each do |name|
-  episode = Episode.new(title: name)
+  episode = Episode.new(title: name, label: "s#{season_number}e#{episode_number.to_s.rjust(2, '0')}")
   episode.save!
+  episode_number += 1
+  if episode_number == 27 || season_number == 3 && episode_number == 14
+    season_number += 1
+    episode_number = 1
+  end
 end
