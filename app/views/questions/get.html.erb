@@ -1,9 +1,9 @@
-<%= form_tag('/post', method: 'post') do %>
+<%= form_tag('/questions/post', method: 'post') do %>
 	<%= image_tag @pic_link, id: 'preview' %>
 	<% @answers.each do |answer| %>
 		<div>
 		  <%= radio_button_tag(:choice, answer) %>
-			<%= label_tag(('choice_' + answer).to_sym, answer) %>
+			<%= label_tag("choice_#{answer}".to_sym, answer) %>
 		</div>
 	<% end %>
 	<%= submit_tag('Next') %>

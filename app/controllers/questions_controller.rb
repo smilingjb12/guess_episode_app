@@ -15,6 +15,11 @@ class QuestionsController < ApplicationController
     redirect_to action: 'get'
   end
 
+  def post
+    logger.debug "PARAMS: #{params}"
+    redirect_to action: 'get'
+  end
+
   private
 
   def random_episode_label
