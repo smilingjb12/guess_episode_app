@@ -1,0 +1,27 @@
+<%= form_tag('/games/answer', method: 'post', id: 'answer-form') do %>
+	<%= image_tag @pic_link, id: 'preview', class: 'img-thumbnail' %>
+  <div class="controls">
+  	<% @episodes.each do |episode| %>
+  		<div class="radio">
+        <label>
+    		  <%= radio_button_tag(:choice, episode.label) %>
+          <%= episode.title %>
+        </label>
+  		</div>
+  	<% end %>
+  	<%= submit_tag('Next', disabled: true, class: 'btn btn-primary') %>
+    <span class="text-muted progress-label"><%= @current_question %> / Episode::QUESTION_COUNT</span>
+    <%= image_tag 'loading.gif', id: 'loading-img', class: 'invisible' %>
+  </div>
+<% end %>
+
+<script>
+  $(function() {
+    $('.radio').on('click', 'label', function() {
+      $('[type="submit"]').removeAttr('disabled')
+    })
+    $('form').on('submit', function() {
+      $('#loading-img').removeClass('invisible')
+    })
+  })
+</script>

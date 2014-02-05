@@ -1,6 +1,9 @@
 GuessEpisodeApp::Application.routes.draw do
-  get "questions/get"
-  post "questions/post"
+  get 'games/next_question'
+  post 'games/answer'
+  get 'games/start', as: 'start_game'
+  root 'games#index'
+  get 'games/result'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
