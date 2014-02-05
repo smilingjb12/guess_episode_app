@@ -1,1 +1,4 @@
-<h2>Correct answers: <%= @correct_answers %> / 10</h2>
+<div class="stats">
+  <h2>Correct answers: <%= @correct_answers %> / <%= Episode::QUESTION_COUNT %></h2>
+  <%= link_to 'Play again', start_game_path, class: 'btn btn-lg btn-success play-again-btn' %>
+</div>

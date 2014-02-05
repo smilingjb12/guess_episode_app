@@ -10,7 +10,9 @@
   		</div>
   	<% end %>
   	<%= submit_tag('Next', disabled: true, class: 'btn btn-primary') %>
-    <span class="text-muted progress-label"><%= @current_question %> / Episode::QUESTION_COUNT</span>
+    <span class="text-muted progress-label">
+      <%= @current_question %> / <%= Episode::QUESTION_COUNT %>
+    </span>
     <%= image_tag 'loading.gif', id: 'loading-img', class: 'invisible' %>
   </div>
 <% end %>
@@ -22,6 +24,7 @@
     })
     $('form').on('submit', function() {
       $('#loading-img').removeClass('invisible')
+      $('[type="submit"]').attr('disabled', true);
     })
   })
 </script>
