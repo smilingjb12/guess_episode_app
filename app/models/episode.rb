@@ -9,16 +9,19 @@ class Episode < ActiveRecord::Base
   end
 
   def random_picture_link
-    require 'mechanize'
-    a = Mechanize.new
-    a.get("http://www.google.by/search?q=site%3Amlp.wikia.com%2Fwiki%2F+#{label}+640")
-    href = a.page
-      .search('h3.r > a')
+    require 'nokogiri'
+    require 'open-uri'
+
+    doc = Nokogiri::HTML(open("http://www.google.by/search?q=site%3Amlp.wikia.com%2Fwiki%2F+#{label}+640"))
+    href = doc
+      .css('h3.r > a')
       .map { |node| node.attributes['href'].value }
       .sample
+    href = CGI::unescape(href)
+    href = href[href.index('=') + 1 ... href.index('&')]
 
-    a.get(href)
-    image_url = a.page.at('#file > a > img')
+    doc = Nokogiri::HTML(open(href))
+    image_url = doc.at('#file > a > img')
       .attributes['src']
       .value
     image_url
