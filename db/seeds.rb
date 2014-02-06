@@ -6,11 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require 'mechanize'
-a = Mechanize.new
-a.get('http://mlp.wikia.com/wiki/Episodes')
-episode_names = a.page
-  .search('table.table-dotted-rows tr td[style^="padding"]')
+
+
+
+
+require 'nokogiri'
+require 'open-uri'
+
+doc = Nokogiri::HTML(open('http://mlp.wikia.com/wiki/Episodes'))
+episode_names = doc
+  .css('table.table-dotted-rows tr td[style^="padding"]')
   .map(&:text)
   .map { |name| name.gsub(/\n/, '').strip }
   .reject(&:empty?)
