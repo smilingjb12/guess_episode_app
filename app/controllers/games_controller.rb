@@ -17,8 +17,8 @@ class GamesController < ApplicationController
     @episodes.shuffle!
     @current_question = session[:answers].size + 1
     session[:correct_episode_label] = @correct_episode.label # store to check for answer later
-  # rescue
-  #   redirect_to action: 'next_question'
+  rescue
+    redirect_to action: 'next_question'
   end
 
   def answer
